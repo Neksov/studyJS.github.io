@@ -1,8 +1,16 @@
-const money = '$';
-let income = 100000;
-let addExpenses = 70000;
-let deposit = 30000;
-const mission = 'Отпуск';
-const period = 24;
+const money = 100000;
+let income = 'фриланс' ;
+let addExpenses = 'Продукты, ОДЕЖДА, Спортзал, ВЫХОДНЫЕ';
+let deposit = true;
+const mission = 500000;
+const period = 12;
+let budgetDay =money/30;
 
-console.log('Сумма которую мы сможем отложить на отпуск за 12 месяцев: ' + (period * deposit + money));
+
+console.log('Тип данных параметра money: ' + typeof money);
+console.log('Тип данных параметра income: ' + typeof income);
+console.log('Тип данных параметра deposit: ' + typeof deposit);
+console.log('addExpenses содержит: ' + addExpenses.length + ' символов');
+console.log('То на что уходят наши деньги: ' +  addExpenses.toLowerCase());
+console.log(addExpenses.split(','));
+console.log ('Наш дневной бюджет: '+ budgetDay + ' рублей' );
