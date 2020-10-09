@@ -4,7 +4,7 @@ let addExpenses = 'Продукты, ОДЕЖДА, Спортзал, ВЫХОД�
 let deposit = true;
 const mission = 500000;
 const period = 12;
-let budgetDay =money/30;
+let budgetDay = money/30;
 
 
 console.log('Тип данных параметра money: ' + typeof money);
