@@ -5,5 +5,4 @@ let deposit = 30000;
 const mission = 'Отпуск';
 const period = 24;
 
-alert('Открой DevTools и глянь вкладку console!');
 console.log('Сумма которую мы сможем отложить на отпуск за 12 месяцев: ' + (period * deposit + money));
