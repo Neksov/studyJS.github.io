@@ -1,4 +1,13 @@
 body {
-  background-color: blueviolet;
+  background-color: rgb(213, 188, 236);
   font-size: 20px;
+  height: 100vh;
+  display: flex;
+}
+.title{
+  font-size: 40px;
+  text-transform: uppercase;
+  display: block;
+  margin: auto;
+  text-align: center;
 }
