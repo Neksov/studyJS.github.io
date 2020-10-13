@@ -1,7 +1,7 @@
-function table (data) {
+const table = function (data) {
   
   //проверка строки, является ли она строка с помощью операторов typeof и instanceof
-  if(typeof data === 'string' || data instanceof  String ){
+  if(typeof data === 'string' || data instanceof String ){
 
     //удаляем пробелы в начале и в конце с помощью метода trim()
     let aftertableLength = data.length;
@@ -18,5 +18,5 @@ function table (data) {
     console.log(data);
   }  
 };
-console.log(table('    12343123456789087654321345678987654321      '));
+table('    вапролдавыфЯАПИРОЬПИАВЫФУЫАИПМА        ');
 
