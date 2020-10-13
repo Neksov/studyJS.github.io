@@ -3,11 +3,22 @@ body {
   font-size: 20px;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+
 }
 .title{
-  font-size: 40px;
+  font-size: 70px;
   text-transform: uppercase;
   display: block;
-  margin: auto;
+  text-align: center;
+  margin-bottom: 0;
+}
+.text{
+  font-size: 50px;
+  text-align: center;
+}
+.console{
+  font-size:30px;
   text-align: center;
 }
