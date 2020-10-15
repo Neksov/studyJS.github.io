@@ -9,22 +9,15 @@ for(let i=0; i<arr.length-1; i++){
 }
 console.log('');
 console.log('2) Вывести в столбик все простые числа от 1 до 100 (сделать при помощи цикла)');
+
 let n = 100;
-for (let i = 2; i <= n; i++) {
-    let flag = 1;
-    if (i > 2 && i % 2 != 0)
-    {
-        for (let j = 3; j*j <= i ; j=j+2)
-        {
-            if (i%j==0)
-            {
-                flag=0;
-                break;
-            }
-        }
-    }
-    else if (i != 2) flag = 0;
-    if (flag==1) {
-      console.log('Делители числа ' + i + ' являются: ' + '1' + ' и ' + i);
-    }
+
+nextPrime:
+for (let i = 2; i <= n; i++) { // перебиаем  n
+
+  for (let j = 2; j < i; j++) { // проверить, делится ли число..
+    if (i % j == 0) continue nextPrime; // не подходит, берём следующее
+  }
+
+  console.log('Делители числа ' + i + ' являются: ' + '1' + ' и ' + i);// простое число
 }
