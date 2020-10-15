@@ -45,8 +45,6 @@ const getExpensesMonth = function(){ //Функция возвращает су�
     }while(!isNumber(sum) || sum === 0 )
     all += sum;
   }
-
-  console.log(expenses);
   return all;
 }
 
@@ -69,11 +67,9 @@ let getStatusIncome = function(){ //проверка уровня дохода
     return('У вас высокий уровень дохода');
   }else if(budgetDay >= 600 && budgetDay <= 1199 ){
     return('У вас средний уровень дохода');
-  }else if(budgetDay >= 0 && budgetDay <= 599){
+  }else (budgetDay >= 0 && budgetDay <= 599)
     return('К сожалению у вас уровень дохода ниже среднего');
-  }else {
-  return('Что то пошло не так');
-  }
+  
 };
 console.log(getStatusIncome());
 
