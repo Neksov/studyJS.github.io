@@ -52,7 +52,7 @@ let appData = {// создали обьект со всеми переменны
   },
 
   getTargetMonth: function () { //Подсчитывает за какой период будет достигнута цель
-    let a = Math.round(appData.mission/budgetMonth);
+    let a = Math.round(appData.mission/appData.budgetMonth);
     if(a < 0){
       console.log('Цель не будет достигнута');
     }else
@@ -61,11 +61,11 @@ let appData = {// создали обьект со всеми переменны
   },
 
   getStatusIncome: function(){ //проверка уровня дохода
-    if(budgetDay >= 1200){
+    if(appData.budgetDay >= 1200){
       return('У вас высокий уровень дохода');
-    }else if(budgetDay >= 600 && budgetDay <= 1199 ){
+    }else if(appData.budgetDay >= 600 && appData.budgetDay <= 1199 ){
       return('У вас средний уровень дохода');
-    }else (budgetDay >= 0 && budgetDay <= 599)
+    }else (appData.budgetDay >= 0 && appData.budgetDay <= 599)
       return('К сожалению у вас уровень дохода ниже среднего');
   },
 };
@@ -75,8 +75,8 @@ let expensesAmount = appData.getExpensesMonth();
 
 console.log('Наши расходы: ' + expensesAmount);
 
-const budgetMonth = appData.getBudget(), //присваеваем значени месячного накопления
-    budgetDay = +parseInt( budgetMonth/30);
+appData.budgetMonth = appData.getBudget(), //присваеваем значени месячного накопления
+appData.budgetDay = +parseInt( appData.budgetMonth/30);
 
 appData.getTargetMonth();
 console.log(appData.getStatusIncome());
