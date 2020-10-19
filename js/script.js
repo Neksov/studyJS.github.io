@@ -23,7 +23,6 @@ let appData = {// создали обьект со всеми переменны
     let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
         appData.addExpenses = addExpenses.toLowerCase().split(',');
         appData.deposit = confirm('Есть ли у вас депозит в банке? Если есть нажмите - ОК, если нет, то нажмите ОТМЕНА');
-        appData.expenses = [];  
 
         for(let i = 0; i < 2; i ++){
           let b = 0,
