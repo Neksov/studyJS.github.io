@@ -1,3 +1,5 @@
+'use strict';
+
 let isNumber = function(n){ //проверка входящих prompt
   return !isNaN(parseFloat(n)) && isFinite(n)
 };
