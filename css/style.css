@@ -1,7 +1,6 @@
 body {
   background-color: rgb(213, 188, 236);
   font-size: 20px;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,4 +20,15 @@ body {
 .console{
   font-size:30px;
   text-align: center;
+}
+#fordays{
+  margin: auto;
+  padding-top: 100px;
+  font-size: 26px;
+}
+.today{
+  font-weight: 700;
+}
+.italic{
+  font-style: italic;
 }
