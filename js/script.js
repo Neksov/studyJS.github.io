@@ -47,7 +47,7 @@ let appData = {// создали обьект со всеми переменны
   },
 
   getBudget: function(){ //Функция возвращает накопления за месяц
-    return money-expensesAmount;
+    return appData.budget-expensesAmount;
   },
 
   getTargetMonth: function () { //Подсчитывает за какой период будет достигнута цель
