@@ -1,6 +1,6 @@
 console.log('1) Создать массив arr = []');
-let arr = ['2345', '1234', '4321', '27432', '35483', '244309435', '480398'];
-for(let i=0; i<arr.length-1; i++){
+let arr = ['2345', '1234', '4321', '27432', '35483', '244309435', '480398', ];
+for(let i=0; i<arr.length; i++){
   let num = String(arr[i]);
   let firstNum = num[0];
   if(firstNum == 2 || firstNum == 4){
