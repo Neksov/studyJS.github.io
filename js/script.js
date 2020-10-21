@@ -21,6 +21,10 @@ let appData = {// создали обьект со всеми переменны
   moneyDeposit: 0,
   mission: 50000,
   period: 3,
+  budget: money,
+  budgetDay: 0,
+  budgetMonth: 0, //сумма за месяц
+  expensesMonth: 0,
   asking: function(){ // методы для вопросов
 
     if(confirm('Если у Вас дополнительный источник заработка?')){
@@ -37,20 +41,19 @@ let appData = {// создали обьект со всеми переменны
     let addExpenses;
         do{
           addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-        }while(isNumber(addExpenses));
+        }while(isNumber(addExpenses) || !addExpenses.length);
 
         appData.addExpenses = addExpenses.toLowerCase().split(',');
+
         appData.deposit = confirm('Есть ли у вас депозит в банке? Если есть нажмите - ОК, если нет, то нажмите ОТМЕНА');
-
-
 
         for(let i = 0; i < 2; i ++){
           let b = 0;
           let a;
 
           do{
-            a = prompt('Введите обязательную статью расходов?');
-          }while(isNumber(a))
+            a = +prompt('Введите обязательную статью расходов?');
+          }while(isNumber(a) || a === 0 )
 
           do{
             b = +prompt('Во сколько это обойдется?');
@@ -59,10 +62,6 @@ let appData = {// создали обьект со всеми переменны
         };
         return appData.expenses;
   },
-  budget: money,
-  budgetDay: 0,
-  budgetMonth: 0, //сумма за месяц
-  expensesMonth: 0,
   
   getExpensesMonth: function(){ //Функция возвращает сумму всех обязательных расходов за месяц
     for(let key in appData.expenses) {
@@ -126,11 +125,12 @@ for(let key in appData) {
 };
 
 
-const toTitleCase = (phrase) => {// выводим масив с каждым словом с большой буквы,слова разделены запятой и пробелом
-  return phrase
+const toTitleCase = (a) => {// выводим масив с каждым словом с большой буквы,слова разделены запятой и пробелом
+  return a
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(', ');
 };
 
 let result = toTitleCase(appData.addExpenses);
 console.log(result);
+
