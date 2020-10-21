@@ -42,7 +42,6 @@ let appData = {// создали обьект со всеми переменны
         do{
           addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
         }while(isNumber(addExpenses) || !addExpenses.length);//проверка на число и на пустую строку
-
         appData.addExpenses = addExpenses.toLowerCase().split(',');
 
         appData.deposit = confirm('Есть ли у вас депозит в банке? Если есть нажмите - ОК, если нет, то нажмите ОТМЕНА');
@@ -125,12 +124,9 @@ for(let key in appData) {
 };
 
 
-const toTitleCase = (a) => {// выводим масив с каждым словом с большой буквы,слова разделены запятой и пробелом
-  return a
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(', ');
-};
+  for (let i=0; i<appData.addExpenses.length; i++){// выводим масив с каждым словом с большой буквы,слова разделены запятой и пробелом
 
-let result = toTitleCase(appData.addExpenses);
-console.log(result);
-
+    appData.addExpenses[i] = appData.addExpenses[i].trim();
+    appData.addExpenses[i] = appData.addExpenses[i][0].toUpperCase() + appData.addExpenses[i].slice(1);
+  }
+  console.log(appData.addExpenses);
