@@ -3,6 +3,24 @@
 let isNumber = function(n){ //проверка входящих prompt
   return !isNaN(parseFloat(n)) && isFinite(n)
 };
+
+const startFirst = document.getElementById('start');
+const btnPlusOne = document.getElementsByTagName('button')[0];
+const btnPlusTwo = document.getElementsByTagName('button')[1];
+const depositCheck = document.querySelector('#deposit-check');
+const additionalIncomeItem = document.querySelectorAll('.additional_income-item');
+const resultTotal = document.getElementsByClassName('result-total');
+const salaryAmount = document.querySelector('salary-amount');
+const incomeTitle = document.querySelector('income-title');
+const incomeAmount = document.querySelector('income-amount');
+const expensesTitle = document.querySelector('expenses-title');
+const expensesAmount1 = document.querySelector('expenses-amount');
+const additionalExpensesItem = document.querySelector('additional_expenses-item');
+const depositAmount = document.querySelector('deposit-amount');
+const depositPercent = document.querySelector('deposit-percent');
+const targetAmount = document.querySelector('target-amount');
+const periodSelect = document.querySelector('period-select');
+
 let money ,
     start = function(){//проверка входящих данных
       do { //интвертируем с помощью оператора !- отрицание
@@ -125,12 +143,9 @@ for(let key in appData) {
 };
 
 
-const toTitleCase = (a) => {// выводим масив с каждым словом с большой буквы,слова разделены запятой и пробелом
-  return a
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(', ');
-};
+for (let i=0; i<appData.addExpenses.length; i++){// выводим масив с каждым словом с большой буквы,слова разделены запятой и пробелом
 
-let result = toTitleCase(appData.addExpenses);
-console.log(result);
-
+  appData.addExpenses[i] = appData.addExpenses[i].trim();
+  appData.addExpenses[i] = appData.addExpenses[i][0].toUpperCase() + appData.addExpenses[i].slice(1);
+}
+console.log(appData.addExpenses);
