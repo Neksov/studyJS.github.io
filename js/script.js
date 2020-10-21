@@ -41,7 +41,7 @@ let appData = {// создали обьект со всеми переменны
     let addExpenses;
         do{
           addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-        }while(isNumber(addExpenses) || !addExpenses.length);
+        }while(isNumber(addExpenses) || !addExpenses.length);//проверка на число и на пустую строку
 
         appData.addExpenses = addExpenses.toLowerCase().split(',');
 
