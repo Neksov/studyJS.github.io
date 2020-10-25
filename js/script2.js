@@ -1,17 +1,15 @@
 'use strict';
 
-const title = document.querySelector('.title');
+// Функция изменяет содержимое t2
+function modifyText() {
+  var t2 = document.getElementById("t2");
+  if (t2.firstChild.nodeValue == "три") {
+    t2.firstChild.nodeValue = "два";
+  } else {
+    t2.firstChild.nodeValue = "три";
+  }
+}
 
-title.setAttribute('style', 'color: orange');
-title.setAttribute('title', 'Новый title');
-
-// title.className = 'headOne';
-// console.log(title.className);
-title.classList.add('headOne');
-
-console.log(title.classList);
-
-// title.classList.remove('salary-title');
-
-// console.log(title.classList);
-console.log(title.classList.contains('headOne'));
+// Добавляет слушателя событий для таблицы
+var el = document.getElementById("outside");
+el.addEventListener("click", modifyText, false);
