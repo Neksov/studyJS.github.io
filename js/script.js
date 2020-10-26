@@ -176,6 +176,7 @@ let appData = {// создали обьект со всеми переменны
     }
 },
 };
+start.disabled = true;      
 start.addEventListener('click', appData.start); // вешаем обработчик события на кнопку расчитать
 salaryAmount.addEventListener('change', appData.blockButton);
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
