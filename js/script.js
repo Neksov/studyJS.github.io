@@ -165,12 +165,12 @@ let appData = {// создали обьект со всеми переменны
     });
   },
   
-  blockButton: function (){ 
+  blockButton: function (){ //делаем не активную кнопку расчитать
     if(salaryAmount.value === '' || !isNumber(salaryAmount.value)){ //проверка на пустую строку
-      appData.start.disabled = 'true';      
+      appData.start.disabled = true;      
       alert('Введи - Месячные доход');
     }else {
-      appData.start.disabled = 'false';      
+      appData.start.disabled = false;      
       appData.budget = +salaryAmount.value;//присваиваем свойство импута
     }
   },
