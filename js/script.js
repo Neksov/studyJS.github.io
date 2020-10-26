@@ -167,17 +167,17 @@ let appData = {// создали обьект со всеми переменны
   
   blockButton: function (){ //делаем не активную кнопку расчитать
     if(salaryAmount.value === '' || !isNumber(salaryAmount.value)){ //проверка на пустую строку
-      appData.start.disabled = true;      
-      alert('Введи - Месячные доход');
+      start.disabled = true;      
+      console.log(start.disabled);
     }else {
-      appData.start.disabled = false;      
-      appData.budget = +salaryAmount.value;//присваиваем свойство импута
+      start.disabled = false; 
+      console.log(start.disabled);
+      return appData.budget = +salaryAmount.value;//присваиваем свойство импута
     }
-  },
+},
 };
-
 start.addEventListener('click', appData.start); // вешаем обработчик события на кнопку расчитать
-
+salaryAmount.addEventListener('change', appData.blockButton);
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
 
