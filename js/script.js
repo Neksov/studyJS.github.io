@@ -32,6 +32,9 @@ let start = document.getElementById('start'),
     additionalExpensesItem = document.querySelector(".additional_expenses-item"),
     incomeItem = document.querySelectorAll('.income-items'),
     input = document.getElementsByTagName('input');
+
+
+
 let appData = {// создали обьект со всеми переменными
   income: {}, // доп доходы
   incomeMonth: 0,
@@ -54,13 +57,14 @@ let appData = {// создали обьект со всеми переменны
     appData.getAddExpenses();
     appData.getAddIncome();
     appData.changeRange();
-    
+    appData.calcPeriod()
     appData.blockInput();
-    appData.reset();
 
     appData.showResult();
   },
-
+  cancel: function(){
+      appData.reset();
+  },
   showResult: function (){
     budgetMonthValue.value = appData.budgetMonth;
     budgetDayValue.value = appData.budgetDay;
@@ -68,7 +72,8 @@ let appData = {// создали обьект со всеми переменны
     additionalExpensesValue.value = appData.addExpenses.join(', '); //join(', ') разбиваем на строрку
     additionalIncomeValue.value = appData.addIncome.join(', ');
     targetMonthValue.value = Math.ceil(appData.getTargetMonth());
-    periodAmount.value =  appData.changeRange();
+    periodAmount.value = appData.changeRange();
+
     incomePeriodValue.value = appData.calcPeriod();//первое значение накопления за период
 
     periodSelect.addEventListener("change", function() {//динамическое изменение накопления за период
@@ -88,7 +93,7 @@ let appData = {// создали обьект со всеми переменны
     incomeItems.forEach(function(item){//перебираем все элементы которые находятся в incomeItems с помошью forEarh
       let itemIncome = item.querySelector('.income-title').value; //внутри item находим input с классом income-title и получаеем его значение
       let cashIncome = item.querySelector('.income-amount').value;
-      if(itemIncome !== '' && cashIncome !== ''){
+      if(itemIncome !== '' && cashIncome !== '' && isNumber(cashIncome)){
         appData.income[itemIncome] = cashIncome; //Записываем в appData.income itemIncome-ключ, cashIncome-значение
       }else
       alert("Введите число в строке сумма дополнительного дохода");
@@ -109,7 +114,7 @@ let appData = {// создали обьект со всеми переменны
     expensesItems.forEach(function(item){//перебираем все элементы которые находятся в expensesItems с помошью forEarh
       let itemExpenses = item.querySelector('.expenses-title').value; //внутри item находим input с классом expenses-title и получаеем его значение
       let cashExpenses = item.querySelector('.expenses-amount').value;
-      if(itemExpenses !== '' && cashExpenses !== ''){
+      if(itemExpenses !== '' && cashExpenses !== '' && isNumber(cashExpenses)){
         appData.expenses[itemExpenses] = cashExpenses; //Записываем в appData.expenses itemExpenses-ключ, cashIncome-значение
       }else
       alert("Введите число в строке сумма обязательные расходы");
@@ -168,9 +173,10 @@ let appData = {// создали обьект со всеми переменны
   },
   changeRange: function(){//меняем значение ползунка
     periodSelect.addEventListener("change", function() {
-      periodAmount.innerHTML = periodSelect.value;
+      periodAmount.textContent = periodSelect.value;
     });
   },
+
   blockButton: function (){ //делаем не активную кнопку расчитать
     if(salaryAmount.value === '' || !isNumber(salaryAmount.value)){ //проверка на пустую строку
       start.disabled = true;      
@@ -178,7 +184,6 @@ let appData = {// создали обьект со всеми переменны
       start.disabled = false; 
       return this.budget = +salaryAmount.value;//присваиваем свойство импута
     }
-
   },
   blockInput: function(){ ///блокируем инпуты и меняем кнопку
     document.querySelectorAll('input[type=text]').forEach(function(item){
@@ -186,16 +191,20 @@ let appData = {// создали обьект со всеми переменны
   });
   start.style.display = 'none';
   cancel.style.display = 'block';
+  incomePlus.style.display = 'none';
+  expensesPlus.style.display = 'none';
   },
 
   reset :function(){
     cancel.addEventListener('click', function(){
       for( let i = 0 ; i < input.length; i++){
-        input[i].value = '';
-        input[i].disabled = false;
+        input[i].value = ''; //обнуялем инпуты
+        input[i].disabled = false; //снимаем блокировки после сброса
       }
       start.style.display = 'block';
       cancel.style.display = 'none';
+      incomePlus.style.display = 'block';
+      expensesPlus.style.display = 'block';
     });
   },
 };
@@ -204,6 +213,10 @@ start.disabled = true;//неактивная кнопка при старте
 
 let start2 = appData.start.bind(appData);
 start.addEventListener('click', appData.start); // вешаем обработчик события на кнопку расчитать
+
+let cancel2 = appData.cancel.bind(appData);
+cancel.addEventListener('click', appData.cancel); // вешаем обработчик события на кнопку сбросить
+
 salaryAmount.addEventListener('change', appData.blockButton);
 
 let expensesPlus2 = appData.addExpensesBlock.bind(appData);
