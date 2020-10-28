@@ -169,8 +169,6 @@ let appData = {// создали обьект со всеми переменны
   changeRange: function(){//меняем значение ползунка
     periodSelect.addEventListener("change", function() {
       periodAmount.innerHTML = periodSelect.value;
-      console.log(periodAmount);
-
     });
   },
   blockButton: function (){ //делаем не активную кнопку расчитать
