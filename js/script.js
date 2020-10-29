@@ -66,15 +66,15 @@ let appData = {// создали обьект со всеми переменны
       appData.reset();
   },
   showResult: function (){
-    budgetMonthValue.value = appData.budgetMonth;
-    budgetDayValue.value = appData.budgetDay;
-    expensesMonthValue.value = appData.expensesMonth;
-    additionalExpensesValue.value = appData.addExpenses.join(', '); //join(', ') разбиваем на строрку
-    additionalIncomeValue.value = appData.addIncome.join(', ');
-    targetMonthValue.value = Math.ceil(appData.getTargetMonth());
-    periodAmount.value = appData.changeRange();
+    budgetMonthValue.value = this.budgetMonth;
+    budgetDayValue.value = this.budgetDay;
+    expensesMonthValue.value = this.expensesMonth;
+    additionalExpensesValue.value = this.addExpenses.join(', '); //join(', ') разбиваем на строрку
+    additionalIncomeValue.value = this.addIncome.join(', ');
+    targetMonthValue.value = Math.ceil(this.getTargetMonth());
+    periodAmount.value = this.changeRange();
 
-    incomePeriodValue.value = appData.calcPeriod();//первое значение накопления за период
+    incomePeriodValue.value = this.calcPeriod();//первое значение накопления за период
 
     periodSelect.addEventListener("change", function() {//динамическое изменение накопления за период
       incomePeriodValue.value = appData.calcPeriod();
@@ -126,7 +126,6 @@ let appData = {// создали обьект со всеми переменны
         appData.addExpenses.push(item);//добавляем с помощью метода push так как добавляем в массив
       }
     }); 
-   
   },
   getAddIncome: function(){//возможные доходы
     additionalIncomeItem.forEach(function(item){
