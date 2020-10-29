@@ -31,7 +31,9 @@ let start = document.getElementById('start'),
     periodAmount = document.querySelector('.period-amount'),
     additionalExpensesItem = document.querySelector(".additional_expenses-item"),
     incomeItem = document.querySelectorAll('.income-items'),
-    input = document.getElementsByTagName('input');
+    input = document.getElementsByTagName('input'),
+    checkBox = document.querySelector('#deposit-checkmark');
+
 
 
 
@@ -48,22 +50,48 @@ let appData = {// создали обьект со всеми переменны
   budgetDay: 0,
   budgetMonth: 0, //сумма за месяц
   expensesMonth: 0,
-  start: function(){//проверка входящих данных
-    appData.blockButton();
-    appData.getExpenses();
-    appData.getIncome();
-    appData.getExpensesMonth();
-    appData.getBudget();
-    appData.getAddExpenses();
-    appData.getAddIncome();
-    appData.changeRange();
-    appData.calcPeriod()
-    appData.blockInput();
 
-    appData.showResult();
+  blockButton: function () { 
+    if(salaryAmount !== ""){
+      start.removeAttribute('disabled');
+    }
   },
-  cancel: function(){
-      appData.reset();
+  start: function(){//проверка входящих данных
+    if(salaryAmount === ''){
+      start.setAttribute('disabled', 'true');
+      return;
+    }
+    let allInput = document.querySelectorAll('.data input[type=text]');//блокиуем
+    allInput.forEach(function (item) {  
+      item.setAttribute('disabled', 'disabled');
+    });
+
+    let check = document.querySelectorAll('.data input[type=checkbox]'); //блокиуем
+    check.forEach(function (item) {  
+      item.setAttribute('disabled', 'disabled');
+    });
+
+    let range = document.querySelectorAll('.data input[type=range]');//блокиуем
+    range.forEach(function (item) {  
+      item.setAttribute('disabled', 'disabled');
+    });
+
+    incomePlus.setAttribute('disabled', 'disabled');
+    expensesPlus.setAttribute('disabled', 'disabled');
+    start.style.display = 'none';
+    cancel.style.display = 'block';
+
+    this.budget = +salaryAmount.value;
+
+    this.getExpenses();
+    this.getIncome();
+    this.getExpensesMonth();
+    this.getBudget();
+    this.getAddExpenses();
+    this.getAddIncome();
+    this.showResult();
+    this.getInfoDeposit();
+    this.getStatusIncome();
   },
   showResult: function (){
     budgetMonthValue.value = this.budgetMonth;
@@ -72,8 +100,6 @@ let appData = {// создали обьект со всеми переменны
     additionalExpensesValue.value = this.addExpenses.join(', '); //join(', ') разбиваем на строрку
     additionalIncomeValue.value = this.addIncome.join(', ');
     targetMonthValue.value = Math.ceil(this.getTargetMonth());
-    periodAmount.value = this.changeRange();
-
     incomePeriodValue.value = this.calcPeriod();//первое значение накопления за период
 
     periodSelect.addEventListener("change", function() {//динамическое изменение накопления за период
@@ -166,61 +192,60 @@ let appData = {// создали обьект со всеми переменны
     }
   },
   calcPeriod: function(){
-    return appData.budgetMonth * periodSelect.value;
-  },
-  changeRange: function(){//меняем значение ползунка
-    periodSelect.addEventListener("change", function() {
-      periodAmount.textContent = periodSelect.value;
-    });
+    return this.budgetMonth * periodSelect.value;
   },
 
-  blockButton: function (){ //делаем не активную кнопку расчитать
-    if(salaryAmount.value === '' || !isNumber(salaryAmount.value)){ //проверка на пустую строку
-      start.disabled = true;      
-    }else {
-      start.disabled = false; 
-      return this.budget = +salaryAmount.value;//присваиваем свойство импута
-    }
-  },
-  blockInput: function(){ ///блокируем инпуты и меняем кнопку
-    document.querySelectorAll('input[type=text]').forEach(function(item){
-      item.disabled = true;
-  });
-  start.style.display = 'none';
-  cancel.style.display = 'block';
-  incomePlus.style.display = 'none';
-  expensesPlus.style.display = 'none';
-  },
+  reset :function(){ //сброс
 
-  reset :function(){
-    cancel.addEventListener('click', function(){
-      for( let i = 0 ; i < input.length; i++){
-        input[i].value = ''; //обнуялем инпуты
-        input[i].disabled = false; //снимаем блокировки после сброса
+    let inputData = document.querySelectorAll('input');
+      inputData.forEach(function(elem){
+        elem.value = '';
+        elem.removeAttribute('disabled');
+        periodSelect.value = '0';
+        periodAmount.innerHTML = periodSelect.value;  
+      });
+      incomePlus.removeAttribute('disabled', 'disabled');
+      expensesPlus.removeAttribute('disabled', 'disabled'); 
+
+      for(let i = 1;i < incomeItems.length; i++){
+        incomeItems[i].parentNode.removeChild(incomeItems[i]);
+        incomePlus.style.display = 'block';
       }
+      for(let i = 1;i < expensesItems.length; i++){
+        expensesItems[i].parentNode.removeChild(expensesItems[i]);
+        expensesPlus.style.display = 'block';
+      }
+
+      this.income = {}; // доп доходы
+      this.incomeMonth = 0;
+      this.addIncome = []; // дополнительные доходы
+      this.expenses = {}; // дополнительные расходы
+      this.addExpenses = []; // возможные расходы
+      this.deposit = false;
+      this.percentDeposit = 0;
+      this.moneyDeposit = 0;
+      this.budget = 0;
+      this.budgetDay = 0;
+      this.budgetMonth = 0; //сумма за месяц
+      this.expensesMonth = 0;    
+
       start.style.display = 'block';
       cancel.style.display = 'none';
-      incomePlus.style.display = 'block';
-      expensesPlus.style.display = 'block';
-    });
   },
 };
 
 start.disabled = true;//неактивная кнопка при старте
+start.addEventListener('click', appData.start.bind(appData)); // вешаем обработчик события на кнопку расчитать
+cancel.addEventListener('click', appData.reset.bind(appData)); // вешаем обработчик события на кнопку сбросить
 
-let start2 = appData.start.bind(appData);
-start.addEventListener('click', appData.start); // вешаем обработчик события на кнопку расчитать
+salaryAmount.addEventListener('click', appData.blockButton);
 
-let cancel2 = appData.cancel.bind(appData);
-cancel.addEventListener('click', appData.cancel); // вешаем обработчик события на кнопку сбросить
-
-salaryAmount.addEventListener('change', appData.blockButton);
-
-let expensesPlus2 = appData.addExpensesBlock.bind(appData);
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
-
-let incomePlus2 = appData.addIncomeBlock.bind(appData);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
+
+periodSelect.addEventListener("change", function() {
+      periodAmount.innerHTML = periodSelect.value;
+});
 
 let expensesAmount = appData.getExpensesMonth();
 appData.budgetMonth = appData.getBudget(), //присваеваем значени месячного накопления
