@@ -95,8 +95,7 @@ let appData = {// создали обьект со всеми переменны
       let cashIncome = item.querySelector('.income-amount').value;
       if(itemIncome !== '' && cashIncome !== '' && isNumber(cashIncome)){
         appData.income[itemIncome] = cashIncome; //Записываем в appData.income itemIncome-ключ, cashIncome-значение
-      }else
-      alert("Введите число в строке сумма дополнительного дохода");
+      }
     });
     for (let key in this.income){
       this.incomeMonth += +this.income[key];
@@ -116,8 +115,7 @@ let appData = {// создали обьект со всеми переменны
       let cashExpenses = item.querySelector('.expenses-amount').value;
       if(itemExpenses !== '' && cashExpenses !== '' && isNumber(cashExpenses)){
         appData.expenses[itemExpenses] = cashExpenses; //Записываем в appData.expenses itemExpenses-ключ, cashIncome-значение
-      }else
-      alert("Введите число в строке сумма обязательные расходы");
+      }
     });
   },
   getAddExpenses: function(){ //возможные расходы
