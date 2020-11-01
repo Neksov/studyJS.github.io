@@ -62,17 +62,17 @@ start(){//проверка входящих данных
     return;
   }
   let allInput = document.querySelectorAll('.data input[type=text]');//блокиуем
-  allInput.forEach(function (item) {  
+  allInput.forEach(item => {  
     item.setAttribute('disabled', 'disabled');
   });
 
   let check = document.querySelectorAll('.data input[type=checkbox]'); //блокиуем
-  check.forEach(function (item) {  
+  check.forEach(item =>{  
     item.setAttribute('disabled', 'disabled');
   });
 
   let range = document.querySelectorAll('.data input[type=range]');//блокиуем
-  range.forEach(function (item) {  
+  range.forEach(item => {  
     item.setAttribute('disabled', 'disabled');
   });
 
@@ -102,7 +102,7 @@ showResult(){
   targetMonthValue.value = Math.ceil(this.getTargetMonth());
   incomePeriodValue.value = this.calcPeriod();//первое значение накопления за период
 
-  periodSelect.addEventListener("change", function() {//динамическое изменение накопления за период
+  periodSelect.addEventListener("change", () => {//динамическое изменение накопления за период
     incomePeriodValue.value = _this.calcPeriod();
   });
 };
@@ -116,7 +116,7 @@ addIncomeBlock(){//блок плюс,для добавления новых па
 };
 getIncome(){
   const  _this = this;//заведомо ложный this
-  incomeItems.forEach(function(item){//перебираем все элементы которые находятся в incomeItems с помошью forEarh
+  incomeItems.forEach(item =>{//перебираем все элементы которые находятся в incomeItems с помошью forEarh
     const itemIncome = item.querySelector('.income-title').value; //внутри item находим input с классом income-title и получаеем его значение
     const cashIncome = item.querySelector('.income-amount').value;
     if(itemIncome !== '' && cashIncome !== '' && isNumber(cashIncome)){
@@ -137,7 +137,7 @@ addExpensesBlock(){//блок плюс,для добавления новых п
 };
 getExpenses(){
   const  _this = this;//заведомо ложный this
-  expensesItems.forEach(function(item){//перебираем все элементы которые находятся в expensesItems с помошью forEarh
+  expensesItems.forEach(item =>{//перебираем все элементы которые находятся в expensesItems с помошью forEarh
     const itemExpenses = item.querySelector('.expenses-title').value; //внутри item находим input с классом expenses-title и получаеем его значение
     const cashExpenses = item.querySelector('.expenses-amount').value;
     if(itemExpenses !== '' && cashExpenses !== '' && isNumber(cashExpenses)){
@@ -148,7 +148,7 @@ getExpenses(){
 getAddExpenses(){ //возможные расходы
   const  _this = this;//заведомо ложный this
   const addExpenses = additionalExpensesItem.value.split(',');//обьявили переменную, и внесли данные с импута и сделали из нее массив с помощью split 
-  addExpenses.forEach(function(item){
+  addExpenses.forEach(item =>{
     item = item.trim();
     if(item !==''){
       _this.addExpenses.push(item);//добавляем с помощью метода push так как добавляем в массив
@@ -157,7 +157,7 @@ getAddExpenses(){ //возможные расходы
 };
 getAddIncome(){//возможные доходы
   const  _this = this;//заведомо ложный this
-  additionalIncomeItem.forEach(function(item){
+  additionalIncomeItem.forEach(item =>{
     const itemValue = item.value.trim();
     if(itemValue !== ''){
       _this.addIncome.push(itemValue);
@@ -199,7 +199,7 @@ calcPeriod(){
 };
 reset(){ //сброс
   const inputData = document.querySelectorAll('input');
-    inputData.forEach(function(elem){
+    inputData.forEach(item =>{
       elem.value = '';
       elem.removeAttribute('disabled');
       periodSelect.value = '0';
@@ -243,7 +243,7 @@ eventListener(){
   expensesPlus.addEventListener('click', this.addExpensesBlock);
   incomePlus.addEventListener('click', this.addIncomeBlock);
   
-  periodSelect.addEventListener("change", function() {
+  periodSelect.addEventListener("change", ()=> {
         periodAmount.innerHTML = periodSelect.value;
   });
   
