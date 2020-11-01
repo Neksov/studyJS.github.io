@@ -32,7 +32,7 @@ const start = document.getElementById('start'),
     incomeItem = document.querySelectorAll('.income-items'),
     input = document.getElementsByTagName('input'),
     checkBox = document.querySelector('#deposit-checkmark');
-
+    
 let expensesItems= document.querySelectorAll('.expenses-items'),
     incomeItems = document.querySelectorAll('.income-items');
 
@@ -53,7 +53,7 @@ class AppData {
     this.expensesMonth = 0;
   }
 blockButton() { 
-  if(salaryAmount !== ""){
+  if(salaryAmount !== "" ){
     start.removeAttribute('disabled');
   }
 };
@@ -63,17 +63,17 @@ start(){//проверка входящих данных
     return;
   }
   let allInput = document.querySelectorAll('.data input[type=text]');//блокиуем
-  allInput.forEach(function (item) {  
+  allInput.forEach(item => {  
     item.setAttribute('disabled', 'disabled');
   });
 
   let check = document.querySelectorAll('.data input[type=checkbox]'); //блокиуем
-  check.forEach(function (item) {  
+  check.forEach(item => {  
     item.setAttribute('disabled', 'disabled');
   });
 
   let range = document.querySelectorAll('.data input[type=range]');//блокиуем
-  range.forEach(function (item) {  
+  range.forEach(item => {  
     item.setAttribute('disabled', 'disabled');
   });
 
@@ -104,7 +104,7 @@ showResult(){
   targetMonthValue.value = Math.ceil(this.getTargetMonth());
   incomePeriodValue.value = this.calcPeriod();//первое значение накопления за период
 
-  periodSelect.addEventListener("change", function() {//динамическое изменение накопления за период
+  periodSelect.addEventListener("change", ()=> {//динамическое изменение накопления за период
     incomePeriodValue.value = _this.calcPeriod();
   });
 };
@@ -118,7 +118,7 @@ addIncomeBlock(){//блок плюс,для добавления новых па
 };
 getIncome(){
   const  _this = this;//заведомо ложный this
-  incomeItems.forEach(function(item){//перебираем все элементы которые находятся в incomeItems с помошью forEarh
+  incomeItems.forEach(item =>{//перебираем все элементы которые находятся в incomeItems с помошью forEarh
     const itemIncome = item.querySelector('.income-title').value; //внутри item находим input с классом income-title и получаеем его значение
     const cashIncome = item.querySelector('.income-amount').value;
     if(itemIncome !== '' && cashIncome !== '' && isNumber(cashIncome)){
@@ -139,18 +139,21 @@ addExpensesBlock(){//блок плюс,для добавления новых п
 };
 getExpenses(){
   const  _this = this;//заведомо ложный this
-  expensesItems.forEach(function(item){//перебираем все элементы которые находятся в expensesItems с помошью forEarh
+  expensesItems.forEach(item =>{//перебираем все элементы которые находятся в expensesItems с помошью forEarh
     const itemExpenses = item.querySelector('.expenses-title').value; //внутри item находим input с классом expenses-title и получаеем его значение
     const cashExpenses = item.querySelector('.expenses-amount').value;
-    if(itemExpenses !== '' && cashExpenses !== '' && isNumber(cashExpenses)){
-      _this.expenses[itemExpenses] = cashExpenses; //Записываем в appData.expenses itemExpenses-ключ, cashIncome-значение
-    }
+    if(itemExpenses !== '' && cashExpenses !== '' && !isNumber(cashExpenses)){
+        _this.expenses[itemExpenses] = cashExpenses; //Записываем в appData.expenses itemExpenses-ключ, cashIncome-значение
+        alert('Введите число в графе сумма, обязательных рассходов')
+        start.disabled = true;
+      }
   });
 };
+
 getAddExpenses(){ //возможные расходы
   const  _this = this;//заведомо ложный this
   const addExpenses = additionalExpensesItem.value.split(',');//обьявили переменную, и внесли данные с импута и сделали из нее массив с помощью split 
-  addExpenses.forEach(function(item){
+  addExpenses.forEach(item =>{
     item = item.trim();
     if(item !==''){
       _this.addExpenses.push(item);//добавляем с помощью метода push так как добавляем в массив
@@ -159,7 +162,7 @@ getAddExpenses(){ //возможные расходы
 };
 getAddIncome(){//возможные доходы
   const  _this = this;//заведомо ложный this
-  additionalIncomeItem.forEach(function(item){
+  additionalIncomeItem.forEach(item =>{
     const itemValue = item.value.trim();
     if(itemValue !== ''){
       _this.addIncome.push(itemValue);
@@ -174,7 +177,7 @@ getExpensesMonth(){ //Функция возвращает сумму всех о
 getBudget(){ //Функция возвращает накопления за месяц
 
   const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
-  this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
+  this.budgetMonth = Math.round(this.budget + this.incomeMonth - this.expensesMonth + monthDeposit);
   this.budgetDay = Math.round(this.budgetMonth/30);
 };
 getTargetMonth() { //Подсчитывает за какой период будет достигнута цель
@@ -189,21 +192,25 @@ getStatusIncome(){ //проверка уровня дохода
     return('К сожалению у вас уровень дохода ниже среднего');
 };
 getInfoDeposit(){
+
   if(this.deposit){
-    if(depositPercent.value <= 0 || depositPercent.value >= 100 || !isNumber(depositPercent.value)){
-      alert('Введите корректное значение в поле проценты');
-      start.disabled = true;
-    }
     this.percentDeposit = depositPercent.value;// процент
-    this.moneyDeposit = depositAmount.value; //данные с инпута 
+    this.moneyDeposit = depositAmount.value; //данные с инпута
   }
+  if(depositPercent.value <= 0 || depositPercent.value >= 100 || !isNumber(depositPercent.value)){
+    alert('Введите корректное значение в поле проценты');
+    start.disabled = true;
+  }else{
+    start.disabled = false;
+  } 
+
 };
 calcPeriod(){
   return this.budgetMonth * periodSelect.value;
 };
 reset(){ //сброс
   const inputData = document.querySelectorAll('input');
-    inputData.forEach(function(elem){
+    inputData.forEach(elem =>{
       elem.value = '';
       elem.removeAttribute('disabled');
       periodSelect.value = '0';
@@ -238,7 +245,7 @@ reset(){ //сброс
     depositAmount.style.display = 'none';
     depositPercent.style.display = 'none';
     depositCheck.checked = false;
-
+    depositBank.value = '';
     start.style.display = 'block';
     cancel.style.display = 'none';
 };
@@ -278,15 +285,14 @@ eventListener(){
   start.addEventListener('click', this.start.bind(this)); // вешаем обработчик события на кнопку расчитать
   cancel.addEventListener('click', this.reset.bind(this)); // вешаем обработчик события на кнопку сбросить
   
-  salaryAmount.addEventListener('click', this.blockButton);
+  salaryAmount.addEventListener('change', this.blockButton);
   
   expensesPlus.addEventListener('click', this.addExpensesBlock);
   incomePlus.addEventListener('click', this.addIncomeBlock);
   
-  periodSelect.addEventListener("change", function() {
+  periodSelect.addEventListener("change", ()=> {
         periodAmount.innerHTML = periodSelect.value;
   });
-  
   depositCheck.addEventListener('change', this.depositHandler.bind(this));
   depositPercent.addEventListener('change', this.getInfoDeposit.bind(this));
 };
