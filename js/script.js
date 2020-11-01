@@ -4,7 +4,7 @@ let isNumber = function(n){ //проверка входящих prompt
   return !isNaN(parseFloat(n)) && isFinite(n)
 };
 
-let start = document.getElementById('start'),
+const start = document.getElementById('start'),
     cancel = document.getElementById('cancel'),
     btnPlus = document.getElementsByTagName('button'),
     incomePlus = btnPlus[0],
@@ -21,8 +21,6 @@ let start = document.getElementById('start'),
     salaryAmount = document.querySelector('.salary-amount'),
     incomeTitle = document.querySelector('.income-title'),
     expensesTitle = document.querySelector('.expenses-title'),
-    expensesItems= document.querySelectorAll('.expenses-items'),
-    incomeItems = document.querySelectorAll('.income-items'),
     additionalExpenses = document.querySelector('.additional_expenses'),
     depositAmount = document.querySelector('.deposit-amount'),
     depositPercent = document.querySelector('.deposit-percent'),
@@ -33,6 +31,10 @@ let start = document.getElementById('start'),
     incomeItem = document.querySelectorAll('.income-items'),
     input = document.getElementsByTagName('input'),
     checkBox = document.querySelector('#deposit-checkmark');
+
+let expensesItems= document.querySelectorAll('.expenses-items'),
+    incomeItems = document.querySelectorAll('.income-items');
+
 
 class AppData {
   constructor(){
