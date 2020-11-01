@@ -22,9 +22,6 @@ const myLesson = [
   {lesson: 15, type: 'additional', points: 1},
   {lesson: 16, type: 'additional', points: 7},
 ];
-
-
-
 console.log(myLesson);
 const typeToRemove = 'additional';
 
@@ -35,4 +32,3 @@ const filteredtype = myLesson.filter((item) => {
   }
 });
 console.log(filteredtype);
-
