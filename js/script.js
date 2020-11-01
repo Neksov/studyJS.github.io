@@ -26,7 +26,6 @@ const myLesson = [
 
 
 console.log(myLesson);
-
 const typeToRemove = 'additional';
 
 const filteredtype = myLesson.filter((item) => {
@@ -35,5 +34,5 @@ const filteredtype = myLesson.filter((item) => {
     return myLesson
   }
 });
-
 console.log(filteredtype);
+
